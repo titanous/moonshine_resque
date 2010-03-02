@@ -1,15 +1,14 @@
 = Moonshine_Resque
 
 A Moonshine[http://github.com/railsmachine/moonshine] plugin for installing and
-managing redis and resque[http://github.com/defunkt/resque] from latest source.
+managing resque[http://github.com/defunkt/resque].
 
 == Instructions
-
+  script/plugin install git://github.com/railsmachine/moonshine_redis.git
   script/plugin install git://github.com/railsmachine/moonshine_resque.git
   
-* Configure settings in your moonshine.yml - see templates/redis.conf.erb for
-  the heavily-commented complete list. (Or use configure() in manifest as usual.)
-* add this to the end of your Rakefile:
+* Configure settings in your moonshine.yml (Or use configure() in manifest as usual)
+* Add this to the end of your Rakefile:
 
     require 'resque/tasks'
 
@@ -18,7 +17,7 @@ managing redis and resque[http://github.com/defunkt/resque] from latest source.
 * Include the plugin and recipe(s) in your Moonshine manifest
 
     recipe :redis
-    recipe :resque          # optional
+    recipe :resque
     recipe :resque_web      # optional
 
 == Resque Web Interface
@@ -47,11 +46,3 @@ Copy the resque.god file from Moonshine_Resque to config/god/resque.god
   cp vendor/plugins/moonshine_resque/templates/resque.god config/god/resque.god
   
 Edit config/god/resque.god as necessary.
-
-== Todo
-
-Patches and pull requests welcome!
-
-* Support releases as well as (the current) use of the most recent source. 
-* Support installing redis without the resque gem
-* Pass the pidfile from configuration to :stop for the 'redis-server' service
