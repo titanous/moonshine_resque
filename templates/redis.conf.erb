@@ -59,9 +59,10 @@ databases <%= options[:databases] || 1 %>
 save 900 1
 save 300 10
 save 60 10000
-<% end %>
+<% else %>
 <% options[:save].each do |sec, keys| %>
 save <%= sec %> <%= keys %>
+<% end %>
 <% end %>
 
 # Compress string objects using LZF when dump .rdb databases?

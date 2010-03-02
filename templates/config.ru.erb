@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+require 'logger'
+require 'resque/server'
+
+use Rack::ShowExceptions
+
+# Set the AUTH env variable to your basic auth password to protect Resque.
+AUTH_PASSWORD = "<%= configuration[:resque][:web][:password] %>"
+AUTH_USERNAME = "<%= configuration[:resque][:web][:username] %>"
+
+if AUTH_PASSWORD && AUTH_USERNAME
+  Resque::Server.use Rack::Auth::Basic do |username, password|
+    (password == AUTH_PASSWORD) && (username == AUTH_USERNAME)
+  end
+end
+
+run Rack::URLMap.new "/" => Resque::Server.new

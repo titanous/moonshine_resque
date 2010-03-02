@@ -5,7 +5,8 @@ managing redis and resque[http://github.com/defunkt/resque] from latest source.
 
 === Instructions
 
-* <tt>script/plugin install git://github.com/Harkins/moonshine_resque.git</tt>
+  script/plugin install git://github.com/Harkins/moonshine_resque.git
+  
 * Configure settings in your moonshine.yml - see templates/redis.conf.erb for
   the heavily-commented complete list. (Or use configure() in manifest as usual.)
 * add this to the end of your Rakefile:
@@ -15,9 +16,25 @@ managing redis and resque[http://github.com/defunkt/resque] from latest source.
 * Remove config/initializers/load_resque.rb if you're not using it
 * Edit (or remove) config/resque.yml to match your production setup
 * Include the plugin and recipe(s) in your Moonshine manifest
-    plugin :resque
+
     recipe :redis
-    recipe :resque # optional
+    recipe :resque          # optional
+    recipe :resque_web      # optional
+
+=== Resque Web Interface
+
+Resque Web Interface can be configured with the following options in your 
+moonshine.yml:
+
+  :resque:
+    :web:
+      :username: resque     # default none
+      :password: sekrit     # default none
+      :port: 5678           # default 8282
+
+The web interface settings will be used to create the VirtualHost and config.ru 
+for the Sinatra application included with Resque. You can access the web 
+interface from your domain and the port, http://example.com:5678  
 
 === Todo
 
