@@ -1,0 +1,10 @@
+Description:
+    Creates configuration files for moonshine_resque
+
+Example:
+    ./script/generate moonshine_resque
+
+    This will create:
+      config/resque.yml
+      config/initializers/load_resque.rb
+      config/god/resque.god

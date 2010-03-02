@@ -6,19 +6,19 @@ managing resque[http://github.com/defunkt/resque].
 == Instructions
   script/plugin install git://github.com/railsmachine/moonshine_redis.git
   script/plugin install git://github.com/railsmachine/moonshine_resque.git
+  script/generate moonshine_resque
   
 * Configure settings in your moonshine.yml (Or use configure() in manifest as usual)
 * Add this to the end of your Rakefile:
 
     require 'resque/tasks'
 
-* Remove config/initializers/load_resque.rb if you're not using it
-* Edit (or remove) config/resque.yml to match your production setup
-* Include the plugin and recipe(s) in your Moonshine manifest
-
-    recipe :redis
+* Include the recipes in your Moonshine manifest
+    
+    recipe :redis           # requires moonshine_redis
     recipe :resque
     recipe :resque_web      # optional
+    recipe :god             # optional, requires moonshine_god to monitor Resque with god
 
 == Resque Web Interface
 
@@ -36,13 +36,9 @@ for the Sinatra application included with Resque. You can access the web
 interface from your domain and the port, http://example.com:5678  
 
 == Monitor Resque with God
-Install the Moonshine_God plugin:
-
+Generate the configuration file and install the Moonshine_God plugin:
+  
+  script/generate moonshine_resque_god
   script/plugin install git://github.com/railsmachine/moonshine_god.git
 
-Copy the resque.god file from Moonshine_Resque to config/god/resque.god
-
-  mkdir -p config/god
-  cp vendor/plugins/moonshine_resque/templates/resque.god config/god/resque.god
-  
-Edit config/god/resque.god as necessary.
+Modify the configuration file (config/god/resque.god) as needed.
