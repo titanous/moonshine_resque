@@ -1,5 +1,5 @@
 Description:
-    Creates configuration files for moonshine_resque
+    Creates configuration files for deploying Resque
 
 Example:
     ./script/generate moonshine_resque
@@ -7,4 +7,3 @@ Example:
     This will create:
       config/resque.yml
       config/initializers/load_resque.rb
-      config/god/resque.god
