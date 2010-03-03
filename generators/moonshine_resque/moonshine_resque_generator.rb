@@ -3,7 +3,7 @@ class MoonshineResqueGenerator < Rails::Generator::Base
     record do |m|
       m.directory "config"
       m.template "resque.yml", "config/resque.yml"
-      m.template "load_resque.rb", "config/initializers/load_resque.rb"
+      m.template "resque.rb", "config/initializers/resque.rb"
     
       intro = <<-INTRO
 

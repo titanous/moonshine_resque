@@ -1,11 +1,13 @@
 module Resque
 
   def resque(options = {})
-    gem "resque", :ensure => :installed
+    %w(resque redis redis-namespace yajl-ruby).each do |g|
+      gem g, :ensure => :installed
+    end
   end
   
   def resque_web(options = {} )
-    %w(json thin sinatra).each do |g|
+    %w(thin sinatra).each do |g|
       gem g, :ensure => :installed
     end
     
