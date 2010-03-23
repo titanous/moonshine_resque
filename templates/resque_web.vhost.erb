@@ -4,4 +4,6 @@ Listen <%= configuration[:resque][:web][:port] || "8282" %>
 <VirtualHost *:<%= configuration[:resque][:web][:port] || "8282" %>>
   ServerName <%= configuration[:domain] || (Facter.to_hash["hostname"] + '.' + Facter.to_hash["domain"]) %>
   DocumentRoot <%= configuration[:deploy_to] + "/shared/resque_web/public" %>
+  RackEnv <%= configuration[:passenger][:rack_env] || ENV['RACK_ENV'] || 'production' %>
+  SetEnv RAILS_ENV <%= configuration[:passenger][:rails_env] || ENV['RAILS_ENV'] || 'production' %>
 </VirtualHost>
