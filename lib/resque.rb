@@ -19,7 +19,6 @@ module Resque
       :content => template(File.join(File.dirname(__FILE__), '..', 'templates', 'config.ru.erb'), binding),
       :ensure => :file,
       :mode => '644',
-      :require => service('redis-server'),
       :notify => service('apache2'),
       :alias => "resque_web_rack"
     
@@ -27,7 +26,6 @@ module Resque
       :content => template(File.join(File.dirname(__FILE__), '..', 'templates', 'resque_web.vhost.erb'), binding),
       :ensure => :file,
       :mode => '644',
-      :require => service('redis-server'),
       :notify => service('apache2'),
       :alias => "resque_web_vhost"
       
