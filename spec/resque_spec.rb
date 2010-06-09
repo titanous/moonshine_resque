@@ -1,7 +1,6 @@
 require File.join(File.dirname(__FILE__), 'spec_helper.rb')
 
 class ResqueManifest < Moonshine::Manifest::Rails
-  plugin :resque
 end
 
 describe "A manifest with the Resque plugin" do
