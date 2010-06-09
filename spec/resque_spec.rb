@@ -30,4 +30,29 @@ describe "A manifest with the Resque plugin" do
     end
   end
 
+  describe "resque_web" do
+    before do
+      @manifest.configure({
+        :deploy_to => '/srv/app',
+        :domain => 'example.com',
+        :passenger => {:rack_env => 'testing'}
+      })
+      @manifest.configure({:resque => {:web => {:username => "test",:password => "test"}}})
+      @manifest.resque_web
+    end
+    
+    it "should install the resque web config.ru" do
+      @manifest.files['/srv/app/shared/resque_web/config.ru'].should_not be(nil)
+    end
+    
+    it "should install the resque web apache vhost" do
+      @manifest.files['/etc/apache2/sites-available/resque_web'].should_not be(nil)
+    end
+    
+    it "should ensure that thin and sinatra are installed" do
+      @manifest.packages.keys.should include('thin')
+      @manifest.packages.keys.should include('sinatra')
+    end
+  end
+
 end

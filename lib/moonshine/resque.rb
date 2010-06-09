@@ -17,14 +17,14 @@ module Moonshine
       file "#{configuration[:deploy_to]}/shared/resque_web/tmp", :ensure => :directory, :before => file("resque_web_rack")
 
       file "#{configuration[:deploy_to]}/shared/resque_web/config.ru",
-        :content => template(File.join(File.dirname(__FILE__), '..', 'templates', 'config.ru.erb'), binding),
+        :content => template(File.join(File.dirname(__FILE__), '..', '..', 'templates', 'config.ru.erb'), binding),
         :ensure => :file,
         :mode => '644',
         :notify => service('apache2'),
         :alias => "resque_web_rack"
 
       file '/etc/apache2/sites-available/resque_web',
-        :content => template(File.join(File.dirname(__FILE__), '..', 'templates', 'resque_web.vhost.erb'), binding),
+        :content => template(File.join(File.dirname(__FILE__), '..', '..', 'templates', 'resque_web.vhost.erb'), binding),
         :ensure => :file,
         :mode => '644',
         :notify => service('apache2'),
