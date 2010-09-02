@@ -35,7 +35,8 @@ describe "A manifest with the Resque plugin" do
       @manifest.configure({
         :deploy_to => '/srv/app',
         :domain => 'example.com',
-        :passenger => {:rack_env => 'testing'}
+        :passenger => {:rack_env => 'testing'},
+        :user => 'rails'
       })
       @manifest.configure({:resque => {:web => {:username => "test",:password => "test"}}})
       @manifest.resque_web
@@ -54,5 +55,4 @@ describe "A manifest with the Resque plugin" do
       @manifest.packages.keys.should include('sinatra')
     end
   end
-
 end

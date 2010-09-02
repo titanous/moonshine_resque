@@ -11,15 +11,27 @@ module Moonshine
       %w(thin sinatra).each do |g|
         gem g, :ensure => :installed
       end
+      
+      directories = [
+        "#{configuration[:deploy_to]}/shared/resque_web",  
+        "#{configuration[:deploy_to]}/shared/resque_web/public",
+        "#{configuration[:deploy_to]}/shared/resque_web/tmp",
+      ]
 
-      file "#{configuration[:deploy_to]}/shared/resque_web", :ensure => :directory, :before => file("resque_web_rack")
-      file "#{configuration[:deploy_to]}/shared/resque_web/public", :ensure => :directory, :before => file("resque_web_rack")
-      file "#{configuration[:deploy_to]}/shared/resque_web/tmp", :ensure => :directory, :before => file("resque_web_rack")
+      directories.each do |dir|
+        file dir,
+        :ensure => :directory,
+        :owner => configuration[:user],
+        :group => configuration[:group] || configuration[:user],
+        :mode => '775'
+      end
 
       file "#{configuration[:deploy_to]}/shared/resque_web/config.ru",
         :content => template(File.join(File.dirname(__FILE__), '..', '..', 'templates', 'config.ru.erb'), binding),
         :ensure => :file,
         :mode => '644',
+        :owner => configuration[:user],
+        :group => configuration[:group] || configuration[:user],
         :notify => service('apache2'),
         :alias => "resque_web_rack"
 
