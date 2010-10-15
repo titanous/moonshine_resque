@@ -5,6 +5,8 @@ module Moonshine
       # Moonshine currently has a bug with `gem 'foo', :version => :latest`
       package 'resque', :ensure => (options[:version] || :latest), :provider => :gem
       gem 'yajl-ruby', :ensure => :installed
+
+      gem 'resque-scheduler', :ensure => :installed if options[:scheduler]
     end
 
     def resque_web_shared

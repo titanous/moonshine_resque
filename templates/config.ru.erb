@@ -2,6 +2,10 @@
 require 'logger'
 require 'resque/server'
 
+<% if configuration[:resque][:scheduler] %>
+require 'resque_scheduler'
+<% end %>
+
 use Rack::ShowExceptions
 
 # Set the AUTH env variable to your basic auth password to protect Resque.
