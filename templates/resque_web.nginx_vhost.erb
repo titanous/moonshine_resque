@@ -2,5 +2,6 @@ server {
   listen <%= configuration[:resque][:web][:port] || '8282' %>;
   server_name <%= configuration[:resque][:domain] || configuration[:domain] || (Facter.to_hash["hostname"] + '.' + Facter.to_hash["domain"]) %>;
   root <%= configuration[:deploy_to] + '/shared/resque_web/public' %>;
+  passenger_enabled on;
   rack_env <%= configuration[:resque][:env] || 'production' %>;
 }
