@@ -8,6 +8,7 @@ module Moonshine
     end
 
     def resque_web_shared
+      configure(:resque => {})
       gem 'sinatra', :ensure => :installed
 
       directories = [
@@ -66,12 +67,14 @@ module Moonshine
         :content => template(File.join(File.dirname(__FILE__), '..', '..', 'templates', 'resque_web.nginx_vhost.erb'), binding),
         :ensure => :file,
         :mode => '644',
+        :require => [file('passenger_nginx_vhost_directory')],
         :notify => exec('nginx_reload'),
         :alias => 'resque_web_vhost_conf'
 
       file "/opt/nginx/conf/vhosts/on/resque_web.conf",
         :ensure => "/opt/nginx/conf/vhosts/resque_web.conf",
-        :notify => [exec('nginx_reload')],
+        :require => [file('resque_web_vhost_conf'), file('passenger_nginx_vhost_directory'), file('passenger_nginx_vhost_on')],
+        :notify => exec('nginx_reload'),
         :alias => 'resque_web_vhost'
     end
 
