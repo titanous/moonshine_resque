@@ -8,7 +8,7 @@ module Moonshine
     end
 
     def resque_web_shared
-      configure(:resque => {})
+      configure(:resque => { :web => {} })
       gem 'sinatra', :ensure => :installed
 
       directories = [
